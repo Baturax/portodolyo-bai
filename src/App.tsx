@@ -20,7 +20,7 @@ function App() {
         <img src={require('./img/ana.png')}
         className='portofolyoresim'/>
 
-        <h2>öyle kafama göre takılıyorum \N arch linux kullaniom</h2>
+        <h2>öyle kafama göre takılıyorum \n arch linux kullaniom</h2>
 
         </header>
 
