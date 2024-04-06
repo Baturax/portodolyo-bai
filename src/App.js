@@ -10,10 +10,9 @@ function App() {
     fetchData();
 
     const interval = setInterval(() => {
-      fetchData(); // Her 3 saniyede bir veriyi yenile
-    }, 3000);
+      fetchData();
+    }, 1000);
 
-    // Component kaldırıldığında zamanlayıcıyı temizle
     return () => clearInterval(interval);
   }, []);
 
@@ -26,31 +25,44 @@ function App() {
       .catch(error => console.error('Hata:', error));
   };
 
-  // Zaman damgalarını tarih ve saat formatına dönüştürmek için yardımcı fonksiyon
   const formatTimestamp = timestamp => {
-    return new Date(timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
+    const date = new Date(timestamp);
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    return `${hours}:${minutes}`;
   };
-
+  
   return (
-    <div className="App">
-      <header className="App-header">
+    <div className="App"> 
 
-      <h2> The song I'm listening: <span className="red-text">{userData && userData.song}</span></h2>
-
+      <div className='as'>
         {userData && userData.album_art_url ? (
           <img className='resim' src={userData.album_art_url} alt="Album Art" />
-        ) : (
-          <div>Album Art not found</div>
+          ) : (
+          <div></div>
         )}
 
+      {userData && userData.album_art_url ? (
+        <h2> The song I'm listening: <span style={{ color: 'red' }}>{userData && userData.song}</span></h2>
+      ) : (
+        <div><h2>Not listening any music rn</h2></div>
+      )}
+      </div>
+      
+      
+      <div className='sa'>
         {userData && userData.track_id && (
           <div>
             <p>{formatTimestamp(userData.timestamps.start)}🎵 ╴	╴	╴	╴	╴	╴ 🎶{formatTimestamp(userData.timestamps.end)}</p>
           </div>
         )}
 
-      </header>
+        </div>
+
     </div>
+
+    
+    
   );
 }
 
